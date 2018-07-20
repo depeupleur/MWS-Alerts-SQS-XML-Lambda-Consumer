@@ -40,8 +40,7 @@ Resources:
             - Effect: Allow
               Action:
                 - 'lambda:Invoke'
-              Resource:
-                !Join: ['', ['arn:aws:sqs:*', !Ref 'AWS::Region', ':', !Ref 'AWS::AccountId',':function:*']]
+              Resource: !Join: ['', ['arn:aws:sqs:*', !Ref 'AWS::Region', ':', !Ref 'AWS::AccountId',':function:*']]
       Environment:
         Variables:
           queueUrl: !Ref 'MWSQueue'
