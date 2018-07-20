@@ -1,8 +1,7 @@
-Welcome to the AWS CodeStar sample web service
+MWS Alerts Consumer
 ==============================================
 
-This sample code helps get you started with a simple Python web service using
-AWS Lambda and Amazon API Gateway.
+This is a Serveless AWS app that composed of an SQS queue, a Lambda function and a DynamoDB Table. The SQS queue is registered with Amazon's MWS api to receive notifications which are then consumed by the Lambda function, which parses the XML file and feeds the changes to the DynamoDB table.
 
 What's Here
 -----------
