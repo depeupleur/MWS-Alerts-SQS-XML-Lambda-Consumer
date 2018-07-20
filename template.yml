@@ -19,22 +19,61 @@ Parameters:
 #       Type: Canary10Percent5Minutes
 
 Resources:
-  HelloWorld:
+  XMLParser:
     Type: AWS::Serverless::Function
     Properties:
+      CodeUri: ./XMLParser.py
       Handler: index.handler
       Runtime: python3.6
+      FunctionName: 'MWSAlertsXMLParser'
       Role:
         Fn::ImportValue:
           !Join ['-', [!Ref 'ProjectId', !Ref 'AWS::Region', 'LambdaTrustRole']]
-      Events:
-        GetEvent:
-          Type: Api
-          Properties:
-            Path: /
-            Method: get
-        PostEvent:
-          Type: Api
-          Properties:
-            Path: /
-            Method: post
+      Policies:
+        - Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Action:
+                - 'sqs:DeleteMessage'
+                - 'sqs:ReceiveMessage'
+              Resource: 'arn:aws:sqs:*'
+            - Effect: Allow
+              Action:
+                - 'lambda:Invoke'
+              Resource:
+                'Fn::Join':
+                  - ''
+                  - - 'arn:aws:sqs:*'
+                    - Ref: 'AWS::Region'
+                    - ':'
+                    - Ref: 'AWS::AccountId'
+                    - ':function:*'
+      Environment:
+        Variables:
+          queueUrl: !Ref 'MWSQueue'
+            
+  MWSQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+        QueueName: 'MWSAlertsQueue'
+  
+Outputs:
+  QueueURL:
+    Description: 'URL of the SQS Queue that recieves the MWS push notifications'
+    Value: !Ref 'MWSQueue'
+        
+  QueueARN:
+    Description: 'ARN of the SQS Queue that recieves the MWS push notifications'
+    Value: !Join
+      -':'
+      --!GetAtt
+        -'MWSQueue'
+        -!Ref 'Arn'
+                
+  QueueName:
+    Description: 'Name of the SQS Queue that recieves the MWS push notifications'
+    Value: !Join 
+      -':'
+      --!GetAtt
+        -'MWSName'
+        - !Ref 'QueueName'   
