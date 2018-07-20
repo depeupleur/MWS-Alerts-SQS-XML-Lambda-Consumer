@@ -3,10 +3,68 @@ MWS Alerts Consumer
 
 This is a Serveless AWS app that composed of an SQS queue, a Lambda function and a DynamoDB Table. The SQS queue is registered with Amazon's MWS api to receive notifications which are then consumed by the Lambda function, which parses the XML file and feeds the changes to the DynamoDB table.
 
-What's Here
+What is Amazon Marketplace Web Service (MWS)
+--------------------------------------------
+
+Amazon Marketplace Web Service (Amazon MWS) is an integrated web service API that helps Amazon sellers to programmatically exchange data on listings, orders, payments, reports, and more. Data integration with Amazon enables high levels of selling automation, which can help sellers grow their business. By using Amazon MWS, sellers can increase selling efficiency, reduce labor requirements, and improve response time to customers.
+
+There are no fees associated with Amazon MWS, but to use the Amazon MWS API you must have an Amazon MWS-eligible seller account and you must register to use Amazon MWS.
+
+https://developer.amazonservices.com/
+
+What API allows me to subscribe to receive alerts from MWS
+---------------------------------------------
+
+The Amazon MWS Subscriptions API section enables you to subscribe to receive notifications that are relevant to your business with Amazon. With the operations in the Subscriptions API section, you can receive important information from Amazon without having to poll the Amazon MWS service. Instead, the information is sent directly to you when an event occurs to which you are subscribed.
+
+Registering a destination
+-------------------------
+
+The RegisterDestination operation (part of the MWS Subscriptions API) specifies a location where you want to receive notifications and adds it to the list of registered destinations. For more information on what kinds of destinations can be specified, see Receiving notifications.
+
+After you register a Destination, you must create a Subscription by calling the CreateSubscription operation to begin receiving notifications.
+
+Note: After you register a Destination, Amazon recommends that you call the SendTestNotificationToDestination operation to verify that you can receive notifications.
+To remove a Destination that you have registered from the list of registered destinations, call the DeregisterDestination operation.
+
+To register a destination please refer to the reference documentation here: http://docs.developer.amazonservices.com/en_US/subscriptions/Subscriptions_RegisterDestination.html
+
+Example request for registering a destination
+---------------------------------------------
+
+POST /Subscriptions/2013-07-01 HTTP/1.1
+Content-Type: x-www-form-urlencoded
+Host: mws.amazonservices.com
+User-Agent: <Your User Agent Header>
+
+AWSAccessKeyId=AKIAEEXAMPLESA
+&Action=RegisterDestination
+&Destination.AttributeList.member.1.Key=sqsQueueUrl
+&Destination.AttributeList.member.1.Value=
+  https%3A%2F%2Fsqs.us-east-1.amazonaws.com%2F51471EXAMPLE%2Fmws_notifications
+&Destination.DeliveryChannel=SQS
+&MWSAuthToken=amzn.mws.4ea38b7b-f563-7709-4bae-87aeaEXAMPLE
+&MarketplaceId=ATVPDKIKX0DER
+&SellerId=A135KEXAMPLE56
+&SignatureMethod=HmacSHA256
+&SignatureVersion=2
+&Timestamp=2013-07-25T16%3A14%3A01Z
+&Version=2013-07-01
+&Signature=WgTRuEXAMPLEeIzoJ5tzX06uKV7ongzUserZ6vj8kug%3D
+
+Sending the request to the MWS Subscriptions API
+------------------------------------------------
+
+You can use the Amazon MWS to send the registration request to the API:
+
+https://mws.amazonservices.com/scratchpad/index.html
+
+
+
+What's in this project
 -----------
 
-This sample includes:
+This app includes:
 
 * README.md - this file
 * buildspec.yml - this file is used by AWS CodeBuild to package your
@@ -18,47 +76,3 @@ This sample includes:
 * tests/ - this directory contains unit tests for your application
 
 
-What Do I Do Next?
-------------------
-
-If you have checked out a local copy of your repository you can start making changes
-to the sample code.  We suggest making a small change to index.py first, so you can
-see how changes pushed to your project's repository are automatically picked up by your
-project pipeline and deployed to AWS Lambda and Amazon API Gateway. (You can watch the pipeline
-progress on your AWS CodeStar project dashboard.)Once you've seen how that works,
-start developing your own code, and have fun!
-
-To run your tests locally, go to the root directory of the
-sample code and run the `python -m unittest discover tests` command, which
-AWS CodeBuild also runs through your `buildspec.yml` file.
-
-To test your new code during the release process, modify the existing tests or
-add tests to the tests directory. AWS CodeBuild will run the tests during the
-build stage of your project pipeline. You can find the test results
-in the AWS CodeBuild console.
-
-Learn more about AWS CodeBuild and how it builds and tests your application here:
-https://docs.aws.amazon.com/codebuild/latest/userguide/concepts.html
-
-Learn more about AWS Serverless Application Model (AWS SAM) and how it works here:
-https://github.com/awslabs/serverless-application-model/blob/master/HOWTO.md
-
-AWS Lambda Developer Guide:
-http://docs.aws.amazon.com/lambda/latest/dg/deploying-lambda-apps.html
-
-Learn more about AWS CodeStar by reading the user guide, and post questions and
-comments about AWS CodeStar on our forum.
-
-User Guide: http://docs.aws.amazon.com/codestar/latest/userguide/welcome.html
-
-Forum: https://forums.aws.amazon.com/forum.jspa?forumID=248
-
-What Should I Do Before Running My Project in Production?
-------------------
-
-AWS recommends you review the security best practices recommended by the framework
-author of your selected sample application before running it in production. You
-should also regularly review and apply any available patches or associated security
-advisories for dependencies used within your application.
-
-Best Practices: https://docs.aws.amazon.com/codestar/latest/userguide/best-practices.html?icmpid=docs_acs_rm_sec
