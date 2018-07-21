@@ -52,13 +52,13 @@ Resources:
   
 Outputs:
   QueueURL:
-    Description: 'URL of the SQS Queue that recieves the MWS push notifications'
+    Description: 'URL of the SQS Queue that recieves the MWS push notifications.'
     Value: !Ref 'MWSQueue'
         
   QueueARN:
-    Description: 'ARN of the SQS Queue that recieves the MWS push notifications'
+    Description: 'ARN of the SQS Queue that recieves the MWS push notifications.'
     Value: !Join [':', [!GetAtt 'MWSQueue.Arn']]
                 
   QueueName:
-    Description: 'Name of the SQS Queue that recieves the MWS push notifications'
+    Description: 'Name of the SQS Queue that recieves the MWS push notifications.'
     Value: !Join [':', [!GetAtt 'MWSQueue.QueueName']]
