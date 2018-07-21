@@ -19,11 +19,16 @@ Parameters:
 #       Type: Canary10Percent5Minutes
 
 Resources:
+  MWSQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+        QueueName: 'MWSAlertsQueue'
+  
   XMLParser:
     Type: AWS::Serverless::Function
     Properties:
       CodeUri: ./XMLParser.py
-      Handler: index.handler
+      Handler: XMLParser.lambda_handler
       Runtime: python3.6
       FunctionName: 'MWSAlertsXMLParser'
       Role:
@@ -41,14 +46,15 @@ Resources:
               Action:
                 - 'lambda:Invoke'
               Resource: !Join: ['', ['arn:aws:sqs:*', !Ref 'AWS::Region', ':', !Ref 'AWS::AccountId',':function:*']]
+      Events:
+        SQSIncoming:
+          Type: SQS
+          Properties:
+            Queue: !Join [':', [!GetAtt 'MWSQueue.Arn']]
+            BatchSize: 10
       Environment:
         Variables:
           queueUrl: !Ref 'MWSQueue'
-            
-  MWSQueue:
-    Type: AWS::SQS::Queue
-    Properties:
-        QueueName: 'MWSAlertsQueue'
   
 Outputs:
   QueueURL:
