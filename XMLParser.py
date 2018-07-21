@@ -36,15 +36,15 @@ def lambda_handler(event, context):
     for message in queue.receive_messages(MaxNumberOfMessages=MWSMAXMSG):
         
 		#parse xml string to json and then to string
-        msgdict = xmltodict.parse(body)
-        dictdump = json.dumps(msgdict)
+		msgdict = xmltodict.parse(body)
+		dictdump = json.dumps(msgdict)
         
 		#output data to log
-        LOGGER.info('__________________________________________')
-        LOGGER.info('Message ID:')
-        LOGGER.info(message.message_id)
+		LOGGER.info('__________________________________________')
+		LOGGER.info('Message ID:')
+		LOGGER.info(message.message_id)
 		LOGGER.info('Message Body in XML:')
-        LOGGER.info(message.body)
+		LOGGER.info(message.body)
 		LOGGER.info('Message Body as a dict:')
         LOGGER.info(dictdump)
         LOGGER.info('__________________________________________')
