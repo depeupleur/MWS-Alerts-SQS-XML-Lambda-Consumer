@@ -62,7 +62,8 @@ Resources:
             BatchSize: 10
       Environment:
         Variables:
-          queueUrl: !Ref 'MWSQueue'
+          MWSQUEUE: !Ref 'MWSQueue'
+          MWSMAXMSG: 10
           
 Outputs:
   QueueURL:

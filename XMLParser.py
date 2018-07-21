@@ -5,8 +5,8 @@ import logging
 import json
 import xmltodict
 
-#Uses xmltodict by martinblech (https://github.com/martinblech/xmltodict) 
-#Distributed under the MIT license which allows commercial and private use, distribution and modification
+#Uses xmltodict by martinblech (https://github.com/martinblech/xmltodict) to parse xml into json
+#xmltodict is distributed under the MIT license which allows commercial and private use, distribution and modification
 
 
 # create logger (logs can be found in CloudWatch)
@@ -14,8 +14,8 @@ LOGGER = logging.getLogger()
 LOGGER.setLevel(logging.DEBUG)
 
 # get function environmental variables
-MWSQUEUE = os.environ.get('AAQUEUE')
-MWSMAXMSG =  int(os.environ.get('AASMAXMSG'))
+MWSQUEUE = os.environ.get('MWSQUEUE')
+MWSMAXMSG =  int(os.environ.get('MWSMAXMSG'))
 
 def lambda_handler(event, context):
 	
