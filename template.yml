@@ -24,6 +24,39 @@ Resources:
     Properties:
         QueueName: 'MWSAlertsQueue'
   
+  XMLParser:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ./XMLParser.py
+      Handler: XMLParser.lambda_handler
+      Runtime: python3.6
+      FunctionName: 'MWSAlertsXMLParser'
+      Description: 'Consumes SQS message and pareses XML'
+      Role:
+        Fn::ImportValue:
+          !Join ['-', [!Ref 'ProjectId', !Ref 'AWS::Region', 'LambdaTrustRole']]
+      Policies:
+        - Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Action:
+                - 'sqs:DeleteMessage'
+                - 'sqs:ReceiveMessage'
+              Resource: 'arn:aws:sqs:*'
+            - Effect: Allow
+              Action:
+                - 'lambda:Invoke'
+              Resource: !Join ['', ['arn:aws:sqs:*', !Ref 'AWS::Region', ':', !Ref 'AWS::AccountId',':function:*']]
+      Events:
+        SQSIncoming:
+          Type: SQS
+          Properties:
+            Queue: !Join [':', [!GetAtt 'MWSQueue.Arn']]
+            BatchSize: 10
+      Environment:
+        Variables:
+          queueUrl: !Ref 'MWSQueue'
+          
 Outputs:
   QueueURL:
     Description: 'URL of the SQS Queue that recieves the MWS push notifications.'
