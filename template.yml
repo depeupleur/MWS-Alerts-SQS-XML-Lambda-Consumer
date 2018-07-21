@@ -6,7 +6,7 @@ Transform:
 Parameters:
   ProjectId:
     Type: String
-    Description: CodeStar projectId used to associate new resources to team members.
+    Description: Serverless repository app for cosuming MWS alerts.
 
 # Enable blue/green deployments using this Globals section. For instructions, see the AWS CodeStar User Guide:
 # https://docs.aws.amazon.com/codestar/latest/userguide/how-to-modify-serverless-project.html?icmpid=docs_acs_rm_tr
@@ -23,6 +23,7 @@ Resources:
     Type: AWS::SQS::Queue
     Properties:
         QueueName: 'MWSAlertsQueue'
+        Description: 'Queue must be subscribed to the MWS notifications API'
   
   XMLParser:
     Type: AWS::Serverless::Function
