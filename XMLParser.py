@@ -24,7 +24,7 @@ def lambda_handler(event, context):
     #    LOGGER.debug('Function ARN: %s', context.invoked_function_arn)
     #else:
     #    LOGGER.warning('Lambda context is missing')    
-    #LOGGER.info(json.dumps(event))
+    LOGGER.info(json.dumps(event))
 	
     # create  sqs service resource 
     sqs = boto3.resource('sqs')
