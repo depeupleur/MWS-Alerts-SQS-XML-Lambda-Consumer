@@ -23,7 +23,6 @@ Resources:
     Type: AWS::SQS::Queue
     Properties:
         QueueName: 'MWSAlertsQueue'
-        Description: 'Queue must be subscribed to the MWS notifications API'
   
   XMLParser:
     Type: AWS::Serverless::Function
