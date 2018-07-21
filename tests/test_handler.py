@@ -1,5 +1,5 @@
 import unittest
-import lambda_handler
+import XMLParser
 
 
 class TestHandlerCase(unittest.TestCase):
