@@ -57,8 +57,8 @@ Outputs:
         
   QueueARN:
     Description: 'ARN of the SQS Queue that recieves the MWS push notifications'
-    Value: !Join [':', [!GetAtt 'MWSQueueArn', !Ref 'Arn']]
+    Value: !Join [':', [!GetAtt 'MWSQueue.Arn']]
                 
   QueueName:
     Description: 'Name of the SQS Queue that recieves the MWS push notifications'
-    Value: !Join [':', [!GetAtt 'MWSQueueName', !Ref 'QueueName']]
+    Value: !Join [':', [!GetAtt 'MWSQueue.QueueName']]
