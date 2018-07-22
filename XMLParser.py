@@ -11,7 +11,7 @@ import xmltodict
 
 # create logger (logs can be found in CloudWatch)
 LOGGER = logging.getLogger()
-LOGGER.setLevel(logging.DEBUG)
+LOGGER.setLevel(logging.INFO)
 
 # get function environmental variables
 MWSQUEUE = os.environ.get('MWSQUEUE')
@@ -34,7 +34,7 @@ def lambda_handler(event, context):
     
     # parse xml messages and print xml and json versions to log
     for message in queue.receive_messages(MaxNumberOfMessages=MWSMAXMSG):
-        
+        LOGGER.info('receiving messages...')
         #parse xml string to json and then to string
         msgdict = xmltodict.parse(message.body)
         dictdump = json.dumps(msgdict)
@@ -54,7 +54,4 @@ def lambda_handler(event, context):
     
    
         
-    return 
-        
-    
-  
+  return 
