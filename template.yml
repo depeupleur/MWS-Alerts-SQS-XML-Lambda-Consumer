@@ -22,14 +22,17 @@ Resources:
   MWSQueue:
     Type: AWS::SQS::Queue
     Properties:
-        QueueName: 'MWSAlertsQueue'
+      QueueName: 'MWSAlertsQueue'
         
   MWSTopic:
     Type: AWS::SNS::Topic
     Properties:
       Subscription: 
-        Endpoint: 'depeuleur@gmail.com'
-        Protocol: 'email'
+        #Subscription takes a list of subscriptions
+        -
+          #replace with the email that should be notified with the alerts
+          Endpoint: 'depeuleur@gmail.com'
+          Protocol: 'email'
       TopicName: 'MSWTopic'
       DisplayName: 'MSWTopic'
   
