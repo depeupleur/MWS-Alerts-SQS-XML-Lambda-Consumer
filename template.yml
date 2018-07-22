@@ -23,11 +23,15 @@ Resources:
     Type: AWS::SQS::Queue
     Properties:
         QueueName: 'MWSAlertsQueue'
+        
+  MWSTopic:
+    Type: AWS::SNS::Topic
+    Properties:
   
   XMLParser:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: ./XMLParser.py
+      CodeUri: .
       Handler: XMLParser.lambda_handler
       Runtime: python3.6
       FunctionName: 'MWSAlertsXMLParser'
