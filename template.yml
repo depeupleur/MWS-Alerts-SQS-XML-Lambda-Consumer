@@ -27,6 +27,11 @@ Resources:
   MWSTopic:
     Type: AWS::SNS::Topic
     Properties:
+      Subscription: 
+        Endpoint: 'depeuleur@gmail.com'
+        Protocol: 'email'
+      TopicName: 'MSWTopic'
+      DisplayName: 'MSWTopic'
   
   XMLParser:
     Type: AWS::Serverless::Function
