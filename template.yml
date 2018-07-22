@@ -64,6 +64,10 @@ Resources:
               Resource: 'arn:aws:sqs:*'
             - Effect: Allow
               Action:
+                - 'sns:Publish'
+              Resource: 'arn:aws:sns.*'
+            - Effect: Allow
+              Action:
                 - 'lambda:Invoke'
               Resource: !Join ['', ['arn:aws:sqs:*', !Ref 'AWS::Region', ':', !Ref 'AWS::AccountId',':function:*']]
       Events:
