@@ -48,22 +48,13 @@ Resources:
         Fn::ImportValue:
           !Join ['-', [!Ref 'ProjectId', !Ref 'AWS::Region', 'LambdaTrustRole']]
       Policies:
-        - Version: '2012-10-17'
-          Statement:
-            - Effect: Allow
-              Action:
-                - 'sqs:SendMessage'
-                - 'sqs:DeleteMessage'
-                - 'sqs:ReceiveMessage'
-              Resource: 'arn:aws:sqs:*'
-            - Effect: Allow
-              Action:
-                - 'sns:Publish'
-              Resource: 'arn:aws:sns.*'
-            - Effect: Allow
-              Action:
-                - 'lambda:Invoke'
-              Resource: !Join ['', ['arn:aws:sqs:*', !Ref 'AWS::Region', ':', !Ref 'AWS::AccountId',':function:*']]
+        - SNSPublishMessagePolicy:
+            TopicName: 'MWSTopic'
+        - SQSPollerPolicy:
+            QueueName: 'MWSQueue'
+        - LambdaInvokePolicy:
+            FunctionName: 'MWSAlertsXMLParser'
+        
       Events:
         SQSIncoming:
           Type: SQS
