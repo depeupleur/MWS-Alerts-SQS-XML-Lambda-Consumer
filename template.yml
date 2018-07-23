@@ -22,7 +22,7 @@ Resources:
   MWSQueue:
     Type: AWS::SQS::Queue
     Properties:
-      QueueName: 'MWSAlertsQueue'
+      QueueName: 'MWSQueue'
         
   MWSTopic:
     Type: AWS::SNS::Topic
@@ -80,6 +80,7 @@ Resources:
         Variables:
           MWSQUEUE: !Ref 'MWSQueue'
           MWSMAXMSG: 10
+          MSWTopic: !Ref 'MWSTopic'
           
 Outputs:
   QueueURL:

@@ -16,6 +16,7 @@ LOGGER.setLevel(logging.INFO)
 # get function environmental variables
 MWSQUEUE = os.environ.get('MWSQUEUE')
 MWSMAXMSG =  int(os.environ.get('MWSMAXMSG'))
+MWSTOPIC = os.environ.get('MWSTOPIC')
 
 def lambda_handler(event, context):
 
@@ -60,3 +61,15 @@ def lambda_handler(event, context):
     
         # Let the queue know that the message is processed
         #message.delete()
+            
+    # Get the SNS resource
+    sns = boto3.resource('sns')
+    
+     # Get the queue
+    topic = sns.Topic(MWSTOPIC)
+    
+    #Send results to topic
+    response = topic.publish(
+        Subject='MWS Alert',
+        Message=dictDump
+    )
