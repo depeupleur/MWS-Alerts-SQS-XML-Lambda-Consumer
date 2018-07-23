@@ -31,6 +31,31 @@ This app includes:
 How to configure this app
 -------------------------
 
+1. Find the Endpoint line in template.yml as shown below and replace with your email address:
+		#replace with the email that should be notified with the alerts
+		Endpoint: 'user@email.com'
+2. Subscribe to the MWS Subscription API as shown below under the MWS section (you must be an Amazon Seller or have access to an Amazon Seller professional account)
+
+How to test this app
+--------------------
+
+Once your app has been deployed you can test the XMLParser Lambda function like this:
+1. Click Configure Test Evenets next to the Test Button in the AWS Lambda Console
+2. Click Create New Test Event
+3. Provide a name for the New Test Event
+4. Copy the contents of the SQSTestEvent.json into the text field 
+5. Click Save
+6. Click Test on the AWS Lambda Console
+
+Once you have completed this test, you can test the SQS Event like this:
+1. Open the SQS AWS Console.
+2. Select the MWSQueue
+3. From Queue Actions, select Send a Message
+4. Copy the contents of SQSMessageBody.xml into the Body text field
+5. Click Send Message
+
+Once you complete this test you can go ahead and cofigure the app as described below.
+
 
 What is Amazon Marketplace Web Service (MWS)
 --------------------------------------------
