@@ -31,27 +31,32 @@ def lambda_handler(event, context):
     
     # get queue 
     queue = sqs.Queue(MWSQUEUE)
+    LOGGER.info('created queue')
+    eventXMLbody = event['Records'][0]['body']
+    LOGGER.info('XML Payload:')
+    LOGGER.info(eventXMLbody)
+    parsedDict = xmltodict.parse(eventXMLbody)
+    dictDump = json.dumps(parsedDict)
+    LOGGER.info('JSON dump:')
+    LOGGER.info(dictDump)
     
-    # parse xml messages and print xml and json versions to log
-    for message in queue.receive_messages(MaxNumberOfMessages=MWSMAXMSG):
-        LOGGER.info('receiving messages...')
+    # This is how to actively receive SQS messages
+    #parse xml messages and print xml and json versions to log
+    #for message in queue.receive_messages(MaxNumberOfMessages=MWSMAXMSG):
+        #LOGGER.info('receiving messages...')
         #parse xml string to json and then to string
-        msgdict = xmltodict.parse(message.body)
-        dictdump = json.dumps(msgdict)
+        #msgdict = xmltodict.parse(message.body)
+        #dictdump = json.dumps(msgdict)
         
         #output data to log
-        LOGGER.info('__________________________________________')
-        LOGGER.info('Message ID:')
-        LOGGER.info(message.message_id)
-        LOGGER.info('Message Body in XML:')
-        LOGGER.info(message.body)
-        LOGGER.info('Message Body as a dict:')
-        LOGGER.info(dictdump)
-        LOGGER.info('__________________________________________')
+        #LOGGER.info('__________________________________________')
+        #LOGGER.info('Message ID:')
+        #LOGGER.info(message.message_id)
+        #LOGGER.info('Message Body in XML:')
+        #LOGGER.info(message.body)
+        #LOGGER.info('Message Body as a dict:')
+        #LOGGER.info(dictdump)
+        #LOGGER.info('__________________________________________')
     
         # Let the queue know that the message is processed
-        message.delete()
-    
-   
-        
-  return 
+        #message.delete()

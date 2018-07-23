@@ -1,0 +1,20 @@
+{
+  "Records": [
+    {
+      "messageId": "e3c797a1-4da5-4daf-b869-8be8f9428035",
+      "receiptHandle": "AQEBFYUtaYWqi9BdMWJs7Q6qlqYVMzJmZxIzusTMMmdt/PTEDx+YS+A26cpET9+WXEFtl4vzGQItQ1ZFTcn1/KF/dpWDYcbdi67fz1VJ87HPpNl7S0iZ4ti9Tuy/9NfeY4B2+HkeRiiyzy7k7HXCT52qQUqTPEo90G84kU5xh28YrehBeP07VmH0/taqf2bE7/ZunDvGz1+g05ed4pr0bzzR46SjrNlqIzq2+JiRr4/cR3lIFGXW3bpm5ADTqI+xNtrdQ9c9pMYiMt6wIcpACuRF6o9+zMqW+4w56oCDQGHnHRRBP4bDlEkSu/tuXN+/xn6tgAFCnnYYVDRyrNvjd3CbNhC0iWmA31tqdirvJ7P8bU39AEFRe7KC6SPMro9BjqfKQ5FejpHXwhWik0Cq5C7YHQ==",
+      "body": "<html><body>Hello World!</body></html>",
+      "attributes": {
+        "ApproximateReceiveCount": "1",
+        "SentTimestamp": "1532314303209",
+        "SenderId": "AIDAINF6A6XC2SZ4IKCC4",
+        "ApproximateFirstReceiveTimestamp": "1532314303224"
+      },
+      "messageAttributes": {},
+      "md5OfBody": "001717e73bca14e4fb2df3cabd6eac98",
+      "eventSource": "aws:sqs",
+      "eventSourceARN": "arn:aws:sqs:us-west-2:571470629533:MWSAlertsQueue",
+      "awsRegion": "us-west-2"
+    }
+  ]
+}
