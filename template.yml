@@ -80,7 +80,7 @@ Resources:
         Variables:
           MWSQUEUE: !Ref 'MWSQueue'
           MWSMAXMSG: 10
-          MWSTopic: !Ref 'MWSTopic'
+          MWSTOPIC: !Ref 'MWSTopic'
           
 Outputs:
   QueueURL:
