@@ -83,7 +83,7 @@ To remove a Destination that you have registered from the list of registered des
 
 To register a destination please refer to the reference documentation here: http://docs.developer.amazonservices.com/en_US/subscriptions/Subscriptions_RegisterDestination.html
 
-Example request for registering a destination
+Example POST request for registering a destination
 ---------------------------------------------
 
 POST /Subscriptions/2013-07-01 HTTP/1.1
@@ -106,11 +106,81 @@ AWSAccessKeyId=AKIAEEXAMPLESA
 &Version=2013-07-01
 &Signature=WgTRuEXAMPLEeIzoJ5tzX06uKV7ongzUserZ6vj8kug%3D
 
-Sending the request to the MWS Subscriptions API
+Sending the register destination request to the MWS Subscriptions API
 ------------------------------------------------
 
 You can use the Amazon MWS to send the registration request to the API:
 
 https://mws.amazonservices.com/scratchpad/index.html
 
+Use the following values:
 
+API Section: Subscriptions
+Operation: RegisterDestination
+SellerId: (Your sellerId found in the permissions section of Settings in SellerCentral)
+AWSAccessKeyId: (AccessKeyId generated n the user permissions section of Settings in SellerCentral)
+SecretKey: (AccessKeyId generated n the user permissions section of Settings in SellerCentral)
+MarketplaceId: (MarketplaceId value as per this list https://docs.developer.amazonservices.com/en_IT/dev_guide/DG_Endpoints.html )
+Destination.DeliveryChannel: SQS
+Destination.AttributeList.member.1.Key: (sqsQueueUrl)
+Destination.AttributeList.member.1.Value: (the sqsQueueUrl found in the environmental variables section in your Lambda function)
+
+Creating a Subscription
+-----------------------
+
+The CreateSubscription operation indicates that the specified notification type should be delivered to the specified Destination. Before you can subscribe, you must first register the Destination by calling the RegisterDestination operation.
+
+Note: After you register a Destination, Amazon recommends that you call the SendTestNotificationToDestination operation to verify that you can receive notifications.
+
+Read more here: http://docs.developer.amazonservices.com/en_US/subscriptions/Subscriptions_CreateSubscription.html
+
+Example POST request for creating a subscription
+------------------------------------------------
+
+POST /Feeds/2009-01-01 HTTP/1.1
+Content-Type: x-www-form-urlencoded
+Host: mws.amazonservices.com
+User-Agent: <Your User Agent Header>
+
+AWSAccessKeyId=0PExampleR2
+&Action=CancelFeedSubmissions
+&FeedSubmissionIdList.Id.1=1058369303
+&FeedTypeList.Type.1=_POST_PRODUCT_DATA_
+&FeedTypeList.Type.2=_POST_PRODUCT_PRICING_DATA_
+&MWSAuthToken=amzn.mws.4ea38b7b-f563-7709-4bae-87aeaEXAMPLE
+&Marketplace=ATExampleER
+&SellerId=A1ExampleE6
+&SignatureMethod=HmacSHA256
+&SignatureVersion=2
+&Timestamp=2009-02-04T17%3A34%3A14.203Z
+&Version=2009-01-01
+&Signature=0RExample0%3D
+
+Sending the subscription request to the MWS Subscriptions API
+------------------------------------------------
+
+You can use the Amazon MWS to send the registration request to the API:
+
+https://mws.amazonservices.com/scratchpad/index.html
+
+Use the following values:
+
+API Section: Subscriptions
+Operation: CreateSubscription
+SellerId: (Your sellerId found in the permissions section of Settings in SellerCentral)
+AWSAccessKeyId: (AccessKeyId generated n the user permissions section of Settings in SellerCentral)
+SecretKey: (AccessKeyId generated n the user permissions section of Settings in SellerCentral)
+MarketplaceId: (MarketplaceId value as per this list https://docs.developer.amazonservices.com/en_IT/dev_guide/DG_Endpoints.html )
+Subscription.NotificationType: (pick one of the three available)
+Destination.DeliveryChannel: SQS
+Destination.AttributeList.member.1.Key: (sqsQueueUrl)
+Destination.AttributeList.member.1.Value: (the sqsQueueUrl found in the environmental variables section in your Lambda function)
+Subscription.IsEnabled: true
+
+Confirmation of setup
+---------------------
+
+You can verify that your queue is properly subscribed by running the ListSubscription operation on the ScratchPad. 
+In the AWS SQS Console you should see messages coming in and being consumed by your function as they do. 
+
+Congratulations, your setup is complete!
