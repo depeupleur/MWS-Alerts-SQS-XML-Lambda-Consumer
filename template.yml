@@ -31,7 +31,7 @@ Resources:
         #Subscription takes a list of subscriptions
         -
           #replace with the email that should be notified with the alerts
-          Endpoint: 'depeuleur@gmail.com'
+          Endpoint: 'depeupleur@gmail.com'
           Protocol: 'email'
       TopicName: 'MWSTopic'
       DisplayName: 'MWSTopic'
