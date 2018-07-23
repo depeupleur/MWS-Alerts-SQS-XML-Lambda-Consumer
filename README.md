@@ -1,8 +1,8 @@
 MWS Alerts Consumer
 ==============================================
 
-This is a Serveless AWS app that composed of an SQS queue, a Lambda function and an SNS Topic. 
-The SQS queue is registered with Amazon's MWS api to receive notifications which are then consumed by the Lambda function. The function parses the XML file, transforms it to a dictionary object, dumps the object to a JSON format. It then publishes the JSON string to an email subscription on the SNS Topic.
+This is a Serveless AWS app composed of an SQS queue, a Lambda function and an SNS Topic. 
+The SQS queue is registered with Amazon's MWS API to receive notifications which are then consumed by the Lambda function. The function parses the XML file, transforms it to a dictionary object, dumps the object to a string in JSON format. It then publishes the JSON string to an email subscription on the SNS Topic.
 
 
 ![Application Architecture](https://raw.githubusercontent.com/depeupleur/MWS-Alerts-SQS-XML-Lambda-Consumer/master/MWSConsumerAppArchitecture.png)
