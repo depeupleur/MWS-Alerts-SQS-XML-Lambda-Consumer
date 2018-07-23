@@ -52,15 +52,9 @@ Resources:
           Statement:
             - Effect: Allow
               Action:
+                - 'sqs:SendMessage'
                 - 'sqs:DeleteMessage'
                 - 'sqs:ReceiveMessage'
-                - 'sqs:SendMessage'
-                - 'sqs:GetQueueAttributes'
-                - 'sqs:SetQueueAttributes'
-                - 'sqs:GetQueueURL'
-                - 'sqs:CreateQueue'
-                - 'sqs:DeleteQueue'
-                - 'sqs:PurgeQueue'
               Resource: 'arn:aws:sqs:*'
             - Effect: Allow
               Action:
