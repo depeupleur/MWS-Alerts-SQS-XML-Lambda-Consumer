@@ -1,0 +1,9 @@
+V0.1
+-----
+
+* added README with app architecture diagram and configure and test instructions
+* completed SAM template.yml
+* included SQS consumer code in XMLParser
+* included SNS publisher code in XMLParser
+* included XML parser code in XMLParser
+* included sample content for tests
