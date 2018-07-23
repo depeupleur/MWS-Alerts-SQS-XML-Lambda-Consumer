@@ -184,3 +184,5 @@ You can verify that your queue is properly subscribed by running the ListSubscri
 In the AWS SQS Console you should see messages coming in and being consumed by your function as they do. 
 
 Congratulations, your setup is complete!
+
+You should start to recieve email messages with the full JSON dump of the alerts sent from WMS. You can modify the code to format the information to suit your needs.
