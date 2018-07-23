@@ -1,6 +1,5 @@
 AWSTemplateFormatVersion: 2010-09-09
 Transform: AWS::Serverless-2016-10-31
-
 Parameters:
   ProjectId:
     Type: String
@@ -42,9 +41,9 @@ Resources:
       Runtime: python3.6
       FunctionName: 'MWSAlertsXMLParser'
       Description: 'Consumes SQS message and pareses XML'
-      Role:
-        Fn::ImportValue:
-          !Join ['-', [!Ref 'ProjectId', !Ref 'AWS::Region', 'LambdaTrustRole']]
+      #Role:
+        #Fn::ImportValue:
+          #!Join ['-', [!Ref 'ProjectId', !Ref 'AWS::Region', 'LambdaTrustRole']]
       Policies:
         - Version: '2012-10-17'
           Statement:
