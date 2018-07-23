@@ -1,7 +1,36 @@
 MWS Alerts Consumer
 ==============================================
 
-This is a Serveless AWS app that composed of an SQS queue, a Lambda function and a DynamoDB Table. The SQS queue is registered with Amazon's MWS api to receive notifications which are then consumed by the Lambda function, which parses the XML file and feeds the changes to the DynamoDB table.
+This is a Serveless AWS app that composed of an SQS queue, a Lambda function and an SNS Topic. 
+The SQS queue is registered with Amazon's MWS api to receive notifications which are then consumed by the Lambda function. The function parses the XML file, transforms it to a dictionary object, dumps the object to a JSON format. It then publishes the JSON string to an email subscription on the SNS Topic.
+
+
+![Application Architecture](https://raw.githubusercontent.com/depeupleur/MWS-Alerts-SQS-XML-Lambda-Consumer/master/MWSConsumerAppArchitecture.png)
+
+
+What's in this project
+----------------------
+
+This app includes:
+
+* README.md - this file
+* buildspec.yml - this file is used by AWS CodeBuild to package your
+  application for deployment to AWS Lambda
+* XMLParser.py - this file contains the code to consume the SQS event, 
+  parse the XML contents, and send the results to SNS
+* template.yml - this file contains the AWS Serverless Application Model (AWS SAM) used
+  by AWS CloudFormation to deploy your application to AWS Lambda and Amazon API
+  Gateway.
+* SQSTestEvent.json - this file can be copied into a Lambda test event to test the XMLParser function
+* SQSTestMessageBody.xml - this file can be copied into the AWS SQS SendMessage Console 
+  to produce a testable SQS Message Event.
+* xmltodict - this file and library are used to parse XML to dictionary objects and are distributed 
+  under the MIT license by Martin Blech and contributors.
+* MWSConsumerAppArchitecture - this file contains the application architecture diagram displayed above.
+
+How to configure this app
+-------------------------
+
 
 What is Amazon Marketplace Web Service (MWS)
 --------------------------------------------
@@ -58,21 +87,5 @@ Sending the request to the MWS Subscriptions API
 You can use the Amazon MWS to send the registration request to the API:
 
 https://mws.amazonservices.com/scratchpad/index.html
-
-
-
-What's in this project
------------
-
-This app includes:
-
-* README.md - this file
-* buildspec.yml - this file is used by AWS CodeBuild to package your
-  application for deployment to AWS Lambda
-* index.py - this file contains the sample Python code for the web service
-* template.yml - this file contains the AWS Serverless Application Model (AWS SAM) used
-  by AWS CloudFormation to deploy your application to AWS Lambda and Amazon API
-  Gateway.
-* tests/ - this directory contains unit tests for your application
 
 
