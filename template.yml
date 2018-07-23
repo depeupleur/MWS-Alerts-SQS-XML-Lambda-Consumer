@@ -44,6 +44,9 @@ Resources:
       Runtime: python3.6
       FunctionName: 'MWSAlertsXMLParser'
       Description: 'Consumes SQS message and pareses XML'
+      Role:
+        Fn::ImportValue:
+          !Join ['-', [!Ref 'ProjectId', !Ref 'AWS::Region', 'LambdaTrustRole']]
       Policies:
         - SNSPublishMessagePolicy:
             TopicName: 'MWSTopic'
